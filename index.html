@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Nexus AI - Mobile Optimized OLED 3D UI</title>
+  <title>Nexus AI - Fixed Header & Smooth Dynamic Bar</title>
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
   <style>
     * {
@@ -28,7 +28,7 @@
       width: 100%;
     }
 
-    /* --- هدر بالا مناسب موبایل --- */
+    /* --- هدر بالا (کاملاً ثابت سر جایش باقی می‌ماند و اصلاً بالا نمی‌رود) --- */
     .top-header {
       position: absolute;
       top: 0;
@@ -37,94 +37,84 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 12px 16px;
+      padding: 14px 18px;
       background: transparent;
       z-index: 100;
+      direction: ltr;
     }
 
+    /* گروه چپ: شامل منوی سه خط و دکمه Get Plus در کنار هم */
     .header-left-group {
-      display: flex;
-      align-items: center;
-    }
-
-    .header-right-group {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    /* دکمه‌های دایره‌ای بالا با لایه نرم و سه بعدی */
+    /* گروه راست: دکمه چت جدید */
+    .header-right-group {
+      display: flex;
+      align-items: center;
+    }
+
+    /* دکمه‌های دایره‌ای بالا با سایه بسیار نرم و یکدست موبایلی */
     .header-circle-btn {
       position: relative;
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #161618 0%, #0a0a0c 100%);
-      border: 1.5px solid rgba(255, 255, 255, 0.16);
-      border-top: 1.5px solid rgba(255, 255, 255, 0.32);
+      background: linear-gradient(145deg, #18181b 0%, #0d0d0f 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-top: 1px solid rgba(255, 255, 255, 0.28);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       color: #ffffff;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.85), inset 0 1px 3px rgba(255, 255, 255, 0.25);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .header-circle-btn::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 50%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 60%);
-      pointer-events: none;
+      box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.7), 
+                  0 4px 12px -2px rgba(0, 0, 0, 0.5), 
+                  inset 0 1px 2px rgba(255, 255, 255, 0.2);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .header-circle-btn:active {
-      transform: scale(0.94);
+      transform: scale(0.93);
     }
 
-    /* دکمه "دریافت پلاس" با لایه سه بعدی نرم */
+    /* دکمه Get Plus در کنار منوی سه خط */
     .header-pill-btn {
       position: relative;
       display: flex;
       align-items: center;
       gap: 6px;
-      padding: 8px 16px;
-      background: linear-gradient(135deg, #161618 0%, #0a0a0c 100%);
-      border: 1.5px solid rgba(255, 255, 255, 0.16);
-      border-top: 1.5px solid rgba(255, 255, 255, 0.32);
+      padding: 10px 16px;
+      background: linear-gradient(145deg, #18181b 0%, #0d0d0f 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-top: 1px solid rgba(255, 255, 255, 0.28);
       border-radius: 30px;
       cursor: pointer;
       color: #bfa1ff;
       font-size: 13.5px;
       font-weight: 500;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.85), inset 0 1px 3px rgba(255, 255, 255, 0.25);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .header-pill-btn::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 30px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.12) 0%, transparent 60%);
-      pointer-events: none;
+      box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.7), 
+                  0 4px 12px -2px rgba(0, 0, 0, 0.5), 
+                  inset 0 1px 2px rgba(255, 255, 255, 0.2);
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .header-pill-btn:active {
-      transform: scale(0.96);
+      transform: scale(0.95);
     }
 
-    /* --- ناحیه نمایش پیام‌ها --- */
+    /* --- ناحیه نمایش پیام‌ها (تنظیم پدینگ ثابت برای هدر ثابت) --- */
     .chat-stream {
       flex-grow: 1;
       overflow-y: auto;
-      padding: 76px 16px 16px 16px;
+      padding: 80px 16px 16px 16px;
       display: flex;
       flex-direction: column;
       gap: 16px;
       scroll-behavior: smooth;
+      direction: ltr;
     }
 
     .chat-stream::-webkit-scrollbar {
@@ -161,27 +151,31 @@
       font-size: 14px;
       line-height: 1.6;
       word-break: break-word;
+      text-align: left;
     }
 
     .message-row.user .message-bubble {
       background: #111113;
       color: #ffffff;
-      border-radius: 20px 20px 4px 20px;
+      border-radius: 20px 20px 20px 4px;
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .message-row.ai .message-bubble {
       background: transparent;
       color: #e5e5ea;
-      border-radius: 20px 20px 20px 4px;
-      padding-right: 0;
+      border-radius: 20px 20px 4px 20px;
+      padding-left: 0;
     }
 
-    /* --- پنل پایین مناسب موبایل --- */
+    /* --- پنل پایین و کادر متنی با تغییر عرض بسیار نرم، آرام و انیمیشن‌وار --- */
     .footer-container {
-      padding: 10px 14px 20px 14px;
+      padding: 10px 16px 22px 16px;
       background: #000000;
       z-index: 100;
+      direction: ltr;
+      display: flex;
+      justify-content: center;
     }
 
     .chat-input-bar {
@@ -189,25 +183,39 @@
       display: flex;
       align-items: center;
       background: #000000;
-      border: 1.5px solid rgba(255, 255, 255, 0.18);
-      border-top: 1.5px solid rgba(255, 255, 255, 0.32);
-      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 36px;
       padding: 6px 12px;
+      /* در حالت پیش‌فرض (انتخاب نشده): عرض کوچک‌تر و جمع‌وجور */
+      width: 90%;
+      max-width: 380px;
+      /* انیمیشن بسیار آرام، روان و تدریجی برای افزایش یا کاهش عرض کادر */
+      transition: width 0.7s cubic-bezier(0.25, 1, 0.5, 1), max-width 0.7s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 
+                  0 10px 30px rgba(0, 0, 0, 0.6), 
+                  inset 0 1px 3px rgba(255, 255, 255, 0.18);
+    }
+
+    /* وقتی چت انتخاب می‌شود (روی کادر کلیک/فوکوس می‌شود): عرض کادر به آرامی و به صورت انیمیشن‌وار بزرگ‌تر می‌شود سر جای خودش */
+    body.keyboard-active .chat-input-bar {
       width: 100%;
-      margin: 0 auto;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 1), inset 0 1px 3px rgba(255, 255, 255, 0.22);
+      max-width: 100%;
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 1), 
+                  0 15px 35px rgba(0, 0, 0, 0.8), 
+                  inset 0 1px 3px rgba(255, 255, 255, 0.22);
     }
 
     .chat-input-bar::before {
       content: '';
       position: absolute;
       inset: -1px;
-      border-radius: 32px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 50%);
+      border-radius: 36px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 60%);
       pointer-events: none;
     }
 
-    .bar-left-controls {
+    .bar-right-controls {
       display: flex;
       align-items: center;
       gap: 6px;
@@ -215,7 +223,6 @@
       z-index: 2;
     }
 
-    /* دکمه صوتی آبی سفارشی */
     .custom-voice-btn {
       position: relative;
       background: transparent;
@@ -235,19 +242,14 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
     }
 
-    .custom-voice-btn:active {
-      transform: scale(0.92);
-    }
-
-    /* دکمه میکروفون با ظاهر سه بعدی نرم موبایل */
     .bar-action-btn {
       position: relative;
-      background: linear-gradient(135deg, #161618 0%, #0a0a0c 100%);
-      border: 1.5px solid rgba(255, 255, 255, 0.14);
-      border-top: 1.5px solid rgba(255, 255, 255, 0.28);
+      background: linear-gradient(145deg, #18181b 0%, #0d0d0f 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-top: 1px solid rgba(255, 255, 255, 0.25);
       width: 38px;
       height: 38px;
       display: flex;
@@ -256,25 +258,16 @@
       cursor: pointer;
       color: #98989f;
       border-radius: 50%;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.18);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       flex-shrink: 0;
     }
 
-    .bar-action-btn::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 50%;
-      background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .bar-action-btn:active {
+    .bar-action-btn:active, .custom-voice-btn:active {
       transform: scale(0.92);
     }
 
-    /* فیلد متن ایمن و مناسب صفحه موبایل */
+    /* فیلد متن روان و هماهنگ */
     .chat-input {
       flex-grow: 1;
       background: transparent;
@@ -284,12 +277,13 @@
       font-size: 14.5px;
       line-height: 38px;
       height: 38px;
-      padding: 0 8px;
-      direction: rtl;
+      padding: 0 10px;
+      direction: ltr;
       z-index: 2;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      text-align: left;
     }
 
     .chat-input::placeholder {
@@ -299,30 +293,30 @@
 </head>
 <body oncontextmenu="return false;">
 
-  <header class="top-header">
+  <header class="top-header" id="topHeader">
     <div class="header-left-group">
-      <button class="header-circle-btn" title="چت جدید">
+      <button class="header-circle-btn" title="Menu">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 22px; height: 22px;">
-          <path d="M8 10.5H16" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
-          <path d="M8 14H13.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
-          <path d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
+          <path d="M4 7L7 7M20 7L11 7" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
+          <path d="M20 17H17M4 17L13 17" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
+          <path d="M4 12H7L20 12" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+      </button>
+
+      <button class="header-pill-btn" title="Get Plus">
+        <span>Get Plus</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z"></path>
         </svg>
       </button>
     </div>
 
     <div class="header-right-group">
-      <button class="header-pill-btn" title="دریافت پلاس">
-        <span>دریافت پلاس</span>
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2l2.4 7.2L22 12l-7.6 2.8L12 22l-2.4-7.2L2 12l7.6-2.8L12 2z"></path>
-        </svg>
-      </button>
-
-      <button class="header-circle-btn" title="منو">
+      <button class="header-circle-btn" title="New Chat">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 22px; height: 22px;">
-          <path d="M4 7L7 7M20 7L11 7" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
-          <path d="M20 17H17M4 17L13 17" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
-          <path d="M4 12H7L20 12" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
+          <path d="M8 10.5H16" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
+          <path d="M8 14H13.5" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
+          <path d="M17 3.33782C15.5291 2.48697 13.8214 2 12 2C6.47715 2 2 6.47715 2 12C2 13.5997 2.37562 15.1116 3.04346 16.4525C3.22094 16.8088 3.28001 17.2161 3.17712 17.6006L2.58151 19.8267C2.32295 20.793 3.20701 21.677 4.17335 21.4185L6.39939 20.8229C6.78393 20.72 7.19121 20.7791 7.54753 20.9565C8.88837 21.6244 10.4003 22 12 22C17.5228 22 22 17.5228 22 12C22 10.1786 21.513 8.47087 20.6622 7" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round"></path>
         </svg>
       </button>
     </div>
@@ -331,15 +325,33 @@
   <div class="chat-stream" id="chatStream">
     <div class="message-row ai">
       <div class="message-bubble">
-        آیکون جدید چت شما با موفقیت اعمال شد و کل ظاهر برنامه کاملاً فیکس و آماده استفاده روی صفحه موبایل است.
+        حالا هدر بالا کاملاً ثابت سر جایش می‌ماند و هنگام انتخاب و شروع چت به هیچ وجه بالا نرفته و مخفی نمی‌شود. فقط کادر پایین به صورت انیمیشن‌وار و نرم بزرگ‌تر می‌شود!
       </div>
     </div>
   </div>
 
   <div class="footer-container">
-    <div class="chat-input-bar">
-      <div class="bar-left-controls">
-        <button class="custom-voice-btn" title="حالت صوتی">
+    <div class="chat-input-bar" id="inputBar">
+      <button class="bar-action-btn" title="Add">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+
+      <input type="text" class="chat-input" id="chatInput" placeholder="Ask ChatGPT" autocomplete="off">
+
+      <div class="bar-right-controls">
+        <button class="bar-action-btn" title="Microphone">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v1a7 7 0 0 1-14 0v-1"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+          </svg>
+        </button>
+
+        <button class="custom-voice-btn" title="Voice Mode">
           <svg width="40" height="40" viewBox="0 0 68 68" xmlns="http://www.w3.org/2000/svg">
             <circle cx="34" cy="34" r="34" fill="#3B82F6"/>
             <g fill="none" stroke="#FFFFFF" stroke-width="3.4" stroke-linecap="round">
@@ -351,27 +363,27 @@
             </g>
           </svg>
         </button>
-
-        <button class="bar-action-btn" title="میکروفون">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
-            <path d="M19 10v1a7 7 0 0 1-14 0v-1"></path>
-            <line x1="12" y1="19" x2="12" y2="23"></line>
-            <line x1="8" y1="23" x2="16" y2="23"></line>
-          </svg>
-        </button>
       </div>
-
-      <input type="text" class="chat-input" id="chatInput" placeholder="از ChatGPT بپرسید" autocomplete="off">
-
-      <button class="bar-action-btn" title="افزودن">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="5" x2="12" y2="19"></line>
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg>
-      </button>
     </div>
   </div>
+
+  <script>
+    const chatInput = document.getElementById('chatInput');
+    const bodyElement = document.body;
+
+    // فقط عرض کادر پایین تغییر می‌کند و هدر ثابت می‌ماند
+    chatInput.addEventListener('focus', () => {
+      bodyElement.classList.add('keyboard-active');
+    });
+
+    chatInput.addEventListener('blur', () => {
+      setTimeout(() => {
+        if (document.activeElement !== chatInput) {
+          bodyElement.classList.remove('keyboard-active');
+        }
+      }, 200);
+    });
+  </script>
 
 </body>
 </html>
